@@ -40,24 +40,24 @@
 
   <body>
     <div id="floating-panel">
-      <button onclick="toggleHeatmap()">2002</button>
-      <button onclick="toggleHeatmap()">2003</button>
-      <button onclick="toggleHeatmap()">2004</button>
-      <button onclick="toggleHeatmap()">2005</button>
-      <button onclick="toggleHeatmap()">2006</button>
-      <button onclick="toggleHeatmap()">2007</button>
-      <button onclick="toggleHeatmap()">2008</button>
-      <button onclick="toggleHeatmap()">2009</button>
-      <button onclick="toggleHeatmap()">2010</button>
-      <button onclick="toggleHeatmap()">2011</button>
-      <button onclick="toggleHeatmap()">2012</button>
-      <button onclick="toggleHeatmap()">2013</button>
-      <button onclick="toggleHeatmap()">2014</button>
-      <button onclick="toggleHeatmap()">2015</button>
-      <!--<button onclick="toggleHeatmap()">Toggle Heatmap</button>
+      <button onclick="setYearlyData(2002)">2002</button>
+      <button onclick="setYearlyData(2003)">2003</button>
+      <button onclick="setYearlyData(2004)">2004</button>
+      <button onclick="setYearlyData(2005)">2005</button>
+      <button onclick="setYearlyData(2006)">2006</button>
+      <button onclick="setYearlyData(2007)">2007</button>
+      <button onclick="setYearlyData(2008)">2008</button>
+      <button onclick="setYearlyData(2009)">2009</button>
+      <button onclick="setYearlyData(2010)">2010</button>
+      <button onclick="setYearlyData(2011)">2011</button>
+      <button onclick="setYearlyData(2012)">2012</button>
+      <button onclick="setYearlyData(2013)">2013</button>
+      <button onclick="setYearlyData(2014)">2014</button>
+      <button onclick="setYearlyData(2015)">2015</button>
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
       <button onclick="changeGradient()">Change gradient</button>
       <button onclick="changeRadius()">Change radius</button>
-      <button onclick="changeOpacity()">Change opacity</button>-->
+      <button onclick="changeOpacity()">Change opacity</button>
     </div>
     <div id="map"></div>
     <script>
@@ -72,13 +72,23 @@ function initMap() {
   });
 
   heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
+    data: [],
     map: map
   });
 }
 
 function toggleHeatmap() {
   heatmap.setMap(heatmap.getMap() ? null : map);
+}
+
+function setYearlyData(year) {
+    $.getJSON('yearly_data/' + year + '.json', function (data) {
+        var points = []
+        for(var i=0; i<data.length; i++){
+            points.push(new google.maps.LatLng(data[i].lat,data[i].lng));
+        }
+        heatmap.setData(points);
+    });
 }
 
 function changeGradient() {
@@ -102,25 +112,16 @@ function changeGradient() {
 }
 
 function changeRadius() {
-  heatmap.set('radius', heatmap.get('radius') ? null : 20);
+  heatmap.set('radius', heatmap.get('radius') ? null : 50);
 }
 
 function changeOpacity() {
-  heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-}
-
-// Heatmap data: 500 Points
-function getPoints() {
-  return [
-    new google.maps.LatLng(45.759722, 21.23),
-    new google.maps.LatLng(45.7596, 21.24),
-    new google.maps.LatLng(45.7598, 21.25)
-  ];
+  heatmap.set('opacity', heatmap.get('opacity') ? null : 1);
 }
 
     </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap">
     </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   </body>
 </html>

@@ -11,7 +11,8 @@ for record in all_records:
     if not year in records_by_year.keys():
         records_by_year[year] = []
     if len(record['geocode']['results']) > 0:
-        records_by_year[year].append(record['geocode']['results'][0]['geometry']['location'])
+        if record['geocode']['results'][0]['geometry']['location']['lat'] != 45.7488716:
+            records_by_year[year].append(record['geocode']['results'][0]['geometry']['location'])
 
 for year in records_by_year.keys():
     with open('site/yearly_data/' + year + '.json', 'w') as outfile:
