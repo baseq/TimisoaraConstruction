@@ -91,7 +91,7 @@ function toggleMarkers(){
 }
 
 function setYearlyData(year) {
-    $.getJSON('yearly_data/' + year + '.json', function (data) {
+    var successHandler = function (data) {
         var points = [];
         for(let i=0; i<markers.length; i++){
           markers[i].setMap(null);
@@ -111,7 +111,8 @@ function setYearlyData(year) {
           marker.setMap(null);
           markers.push(marker);
         }
-    });
+    };
+    $.ajax({cache: false, dataType: "json", url: 'yearly_data/' + year + '.json', success: successHandler});
 }
 
 function changeRadius() {
