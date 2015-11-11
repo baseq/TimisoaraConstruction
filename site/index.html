@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Timisoara Building Permits</title>
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <style>
       html, body {
         height: 100%;
@@ -12,55 +13,74 @@
       #map {
         height: 100%;
       }
-#floating-panel {
-  position: absolute;
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
-
-      #floating-panel {
-        background-color: #fff;
-        border: 1px solid #999;
-        left: 25%;
-        padding: 5px;
-        position: absolute;
-        top: 10px;
-        z-index: 5;
+      .btn.active, .btn:active {
+          box-shadow: 0px 3px 31px -1px #888888;
+      }
+      .navbar-collapse {
+          margin-left: auto;
+          margin-right: auto;
+      }
+      #data-info {
+          margin: 10px 10px 0 10px;
+          padding: 5px;
+      }
+      .navbar {
+          margin-bottom: 0;
       }
     </style>
   </head>
 
   <body>
-    <div id="floating-panel">
-      <button onclick="setYearlyData(2002)">2002</button>
-      <button onclick="setYearlyData(2003)">2003</button>
-      <button onclick="setYearlyData(2004)">2004</button>
-      <button onclick="setYearlyData(2005)">2005</button>
-      <button onclick="setYearlyData(2006)">2006</button>
-      <button onclick="setYearlyData(2007)">2007</button>
-      <button onclick="setYearlyData(2008)">2008</button>
-      <button onclick="setYearlyData(2009)">2009</button>
-      <button onclick="setYearlyData(2010)">2010</button>
-      <button onclick="setYearlyData(2011)">2011</button>
-      <button onclick="setYearlyData(2012)">2012</button>
-      <button onclick="setYearlyData(2013)">2013</button>
-      <button onclick="setYearlyData(2014)">2014</button>
-      <button onclick="setYearlyData(2015)">2015</button>
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-      <button onclick="toggleMarkers()">Toggle Markers</button>
-      <button onclick="changeRadius()">Change radius</button>
-      <button onclick="changeOpacity()">Change opacity</button>
-      <br/>
-      <div id="data-info">Info about data</div>
-    </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Home</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Years <b><span class="active-year"></span></b><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2002)">2002</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2003)">2003</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2004)">2004</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2005)">2005</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2006)">2006</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2007)">2007</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2008)">2008</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2009)">2009</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2010)">2010</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2011)">2011</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2012)">2012</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2013)">2013</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2014)">2014</a></li>
+                            <li><a class="btn year-filter" href="javascript:;" onclick="setYearlyData(2015)">2015</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Tools <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="btn tools" href="javascript:;" onclick="toggleActive();toggleHeatmap();">Toggle Heatmap</a></li>
+                            <li><a class="btn tools" href="javascript:;" onclick="toggleActive();toggleMarkers();">Toggle Markers</a></li>
+                            <li><a class="btn tools" href="javascript:;" onclick="changeRadius()">Change radius</a></li>
+                            <li><a class="btn tools" href="javascript:;" onclick="changeOpacity()">Change opacity</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="data-info" class="panel panel-default">Info about data</div>
     <div id="map"></div>
     <script>
 'use strict';
@@ -71,8 +91,20 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
     center: {lat: 45.759722, lng: 21.23},
-    mapTypeId: google.maps.MapTypeId.SATELLITE
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+    position: google.maps.ControlPosition.LEFT_BOTTOM,
+    mapTypeIds: [
+      google.maps.MapTypeId.SATELLITE,
+      google.maps.MapTypeId.ROADMAP,
+      google.maps.MapTypeId.TERRAIN,
+      google.maps.MapTypeId.HYBRID
+    ]}
   });
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
+            document.getElementById('data-info'));
 
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: [],
@@ -90,6 +122,10 @@ function toggleMarkers(){
   }
 }
 
+function toggleActive () {
+    jQuery(this).toggleClass("active");
+}
+
 function setYearlyData(year) {
     var successHandler = function (data) {
         var points = [];
@@ -102,7 +138,7 @@ function setYearlyData(year) {
             points.push(new google.maps.LatLng(sourcePoints[i].lat,sourcePoints[i].lng));
         }
         heatmap.setData(points);
-        $('#data-info').html("Displayed accurate points: "+data.accurate+"; Ignored inaccurate points: "+data.ignored);
+        $('#data-info').html("Displayed accurate points: "+data.accurate+"<br/> Ignored inaccurate points: "+data.ignored);
         for(let i=0; i<sourcePoints.length; i++){
           let marker = new google.maps.Marker({
               position: new google.maps.LatLng(sourcePoints[i].lat,sourcePoints[i].lng),
@@ -127,5 +163,28 @@ function changeOpacity() {
     <script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap">
     </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+      jQuery(document).ready(function() {
+          //collapse navbar on all link clicks
+          $(".navbar-nav li a.btn").click(function(event) {
+              $(".navbar-collapse").collapse('hide');
+          });
+
+          //toggle active state for years
+          var selected = [];
+          $('.year-filter').click(function() {
+              if(selected[0]) {
+                  selected.removeClass('active');
+                  $('.active-year').text('');
+              }
+              selected = $(this);
+              selected.addClass('active');
+
+              //set label years for dropdown
+              $('.active-year').text("\(" + selected.text() + "\)");
+          });
+      });
+  </script>
   </body>
 </html>
